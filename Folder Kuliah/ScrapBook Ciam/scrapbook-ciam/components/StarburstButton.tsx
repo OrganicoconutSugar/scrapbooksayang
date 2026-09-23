@@ -216,7 +216,7 @@ export default function StarburstButton() {
               display: "block",
             }}
           >
-            AUGUSTA SHIVA ▷
+            SITI MARYAM ▷
           </span>
         </div>
       )}
