@@ -125,9 +125,7 @@ export default function StarburstButton() {
                 lineHeight: 1.2,
               }}
             >
-              Happy
-              <br />
-              birthday...
+              HALO DUNIAKU
             </span>
           )}
         </span>
@@ -191,7 +189,7 @@ export default function StarburstButton() {
               marginBottom: "4px",
             }}
           >
-            Happy birthday, Augusta!
+            Happy Wonderfull, Sayang!
           </p>
           <p
             style={{
