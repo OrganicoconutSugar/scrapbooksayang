@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600;700&family=Permanent+Marker&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* ============================================
+   CSS CUSTOM PROPERTIES — DESIGN TOKENS
+   ============================================ */
+:root {
+  /* Colors */
+  --canvas-left: #FAFAF7;
+  --canvas-right: #181615;
+  --coral: #FF5E3A;
+  --yellow-script: #FFEA2E;
+  --highlight-yellow: #FAED27;
+  --highlight-lavender: #E0B0FF;
+  --highlight-mint: #38E4AE;
+  --ink: #121212;
+  --ink-muted: #5A5A58;
+  --card-white: #FFFFFF;
+  --ransom-orange: #FF4E11;
+  --border-ink: #141414;
+
+  /* Shadows */
+  --shadow-brutal: 3px 3px 0 #121212;
+  --shadow-brutal-lg: 5px 5px 0 #121212;
+  --shadow-brutal-red: 3px 3px 0 #FF4E11;
+
+  /* Typography */
+  --font-ransom: 'Anton', 'Archivo Black', Impact, sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-cursive: 'Caveat', 'Permanent Marker', cursive;
+  --font-body: 'Inter', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--canvas-right);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ============================================
+   TYPOGRAPHY UTILITIES
+   ============================================ */
+.font-ransom { font-family: var(--font-ransom); }
+.font-mono   { font-family: var(--font-mono); }
+.font-cursive { font-family: var(--font-cursive); }
+.font-body   { font-family: var(--font-body); }
+
+/* ============================================
+   HIGHLIGHT ANIMATIONS (Scrub-in effect)
+   ============================================ */
+.highlight {
+  position: relative;
+  display: inline;
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding: 1px 4px;
+  transition: background-size 0.6s ease;
+}
+
+.highlight.in-view {
+  background-size: 100% 100%;
+}
+
+.highlight-yellow {
+  background-image: linear-gradient(to right, #FAED27 0%, #FAED27 100%);
+  color: var(--ink);
+}
+
+.highlight-lavender {
+  background-image: linear-gradient(to right, #E0B0FF 0%, #E0B0FF 100%);
+  color: var(--ink);
+}
+
+.highlight-mint {
+  background-image: linear-gradient(to right, #38E4AE 0%, #38E4AE 100%);
+  color: var(--ink);
+}
+
+/* ============================================
+   POLAROID / PAPER CARD
+   ============================================ */
+.polaroid {
+  background: var(--card-white);
+  padding: 10px 10px 28px 10px;
+  box-shadow: var(--shadow-brutal);
+  border: 2px solid var(--border-ink);
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.25s ease;
+}
+
+.polaroid:hover {
+  box-shadow: var(--shadow-brutal-lg);
+}
+
+/* ============================================
+   BRUTAL BUTTON / BADGE
+   ============================================ */
+.brutal-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 2px solid var(--border-ink);
+  box-shadow: var(--shadow-brutal);
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: var(--highlight-yellow);
+  color: var(--ink);
+}
+
+/* ============================================
+   TAPE STICKER
+   ============================================ */
+.tape {
+  position: absolute;
+  width: 54px;
+  height: 18px;
+  background: rgba(255, 234, 46, 0.6);
+  border: 1px solid rgba(180, 160, 0, 0.3);
+  left: 50%;
+  top: -10px;
+  transform: translateX(-50%) rotate(-1deg);
+  z-index: 2;
+}
+
+/* ============================================
+   PAPER TEXTURE OVERLAY
+   ============================================ */
+.paper-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   STARBURST ANIMATION
+   ============================================ */
+@keyframes starburst-spin {
+  from { transform: rotate(0deg) scale(1); }
+  to   { transform: rotate(15deg) scale(1.08); }
+}
+
+@keyframes ripple {
+  0%   { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.starburst-idle {
+  animation: none;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.starburst-active {
+  transform: rotate(15deg) scale(1.08);
+}
+
+@keyframes pop-in {
+  0%   { opacity: 0; transform: scale(0.6) rotate(-6deg); }
+  70%  { transform: scale(1.08) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.pop-in {
+  animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ============================================
+   AUDIO WAVEFORM
+   ============================================ */
+@keyframes wave-bar {
+  0%, 100% { height: 4px; }
+  50%       { height: 16px; }
+}
+
+.wave-bar {
+  width: 3px;
+  background: var(--coral);
+  border-radius: 2px;
+  animation: wave-bar 0.8s ease-in-out infinite;
+}
+
+.wave-bar:nth-child(2) { animation-delay: 0.1s; }
+.wave-bar:nth-child(3) { animation-delay: 0.2s; }
+.wave-bar:nth-child(4) { animation-delay: 0.3s; }
+.wave-bar:nth-child(5) { animation-delay: 0.15s; }
+.wave-bar:nth-child(6) { animation-delay: 0.05s; }
+.wave-bar:nth-child(7) { animation-delay: 0.25s; }
+.wave-bar:nth-child(8) { animation-delay: 0.35s; }
+
+.wave-bar.paused {
+  animation-play-state: paused;
+  height: 4px;
+}
+
+/* ============================================
+   CHAPTER HEADER LETTERS
+   ============================================ */
+.ransom-letter {
+  display: inline-block;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.ransom-letter:hover {
+  transform: translateY(-2px) rotate(1deg);
+}
+
+/* ============================================
+   SCROLLBAR CUSTOM
+   ============================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--canvas-right); }
+::-webkit-scrollbar-thumb { background: #3a3a36; border-radius: 3px; }
+
+/* ============================================
+   FOCUS STYLES (Accessibility)
+   ============================================ */
+:focus-visible {
+  outline: 3px solid var(--coral);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   MOBILE OVERRIDES
+   ============================================ */
+@media (max-width: 768px) {
+  .left-pane-fixed {
+    position: relative !important;
+    height: auto !important;
+    width: 100% !important;
+  }
+}
+
+/* ============================================
+   SCROLL REVEAL ANIMATIONS
+   ============================================ */
+.scroll-card {
+  opacity: 0;
+  transform: translateY(120px);
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
+}
+
+.scroll-card.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
