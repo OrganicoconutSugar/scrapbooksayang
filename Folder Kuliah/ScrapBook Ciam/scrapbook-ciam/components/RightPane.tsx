@@ -192,7 +192,7 @@ export default function RightPane({ onChapterChange }: RightPaneProps) {
 {/* Card stack – sequential, one card per viewport, replaces on scroll */}
         <div className="flex flex-col items-center">
           {chapter1Cards.map((card) => (
-            <div key={card.id} className="h-screen w-full flex items-center justify-center" style={{ marginLeft: "-10px" }}>
+            <div key={card.id} className="h-screen w-full flex items-center justify-center" style={card.id === "card-6" ? {marginLeft: "-10px", marginBottom: "100vh"} : {marginLeft: "-10px"}}>
               <div
                 className="scroll-card"
                 style={{
