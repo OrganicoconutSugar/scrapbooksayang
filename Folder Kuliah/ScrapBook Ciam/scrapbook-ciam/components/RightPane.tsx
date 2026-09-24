@@ -90,49 +90,49 @@ interface RightPaneProps {
 export default function RightPane({ onChapterChange }: RightPaneProps) {
   const containerRef = useRef<HTMLElement>(null);
 
-// Efek scroll dengan GSAP
-   useEffect(() => {
-// 1. Observer untuk memicu animasi GSAP saat masuk viewport
-      const revealObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              // hide other cards and reset their style
-              const cards = document.querySelectorAll('.scroll-card');
-              cards.forEach((c) => {
-                c.classList.remove('revealed');
-                const el = c as HTMLElement;
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(120px)';
-                el.style.zIndex = '0';
-                el.style.pointerEvents = 'none';
-              });
-              // animate current card
-              const target = entry.target as HTMLElement;
-              gsap.fromTo(
-                target,
-                { transform: 'translateY(120px)', opacity: 0 },
-                { transform: 'translateY(0)', opacity: 1, duration: 0.8, ease: 'power2.out' }
-              );
-              target.classList.add('revealed');
-              target.style.zIndex = '10';
-              target.style.pointerEvents = 'auto';
-            }
-          });
-        },
-        {
-          root: null,
-          rootMargin: '0px',
-          threshold: 0.5,
-        }
-      );
+  // Efek scroll dengan GSAP
+  useEffect(() => {
+    // 1. Observer untuk memicu animasi GSAP saat masuk viewport
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // hide other cards and reset their style
+            const cards = document.querySelectorAll('.scroll-card');
+            cards.forEach((c) => {
+              c.classList.remove('revealed');
+              const el = c as HTMLElement;
+              el.style.opacity = '0';
+              el.style.transform = 'translateY(120px)';
+              el.style.zIndex = '0';
+              el.style.pointerEvents = 'none';
+            });
+            // animate current card
+            const target = entry.target as HTMLElement;
+            gsap.fromTo(
+              target,
+              { transform: 'translateY(120px)', opacity: 0 },
+              { transform: 'translateY(0)', opacity: 1, duration: 0.8, ease: 'power2.out' }
+            );
+            target.classList.add('revealed');
+            target.style.zIndex = '10';
+            target.style.pointerEvents = 'auto';
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5,
+      }
+    );
 
-     const cards = document.querySelectorAll(".scroll-card");
-     cards.forEach((card) => {
-       revealObserver.observe(card);
-     });
+    const cards = document.querySelectorAll(".scroll-card");
+    cards.forEach((card) => {
+      revealObserver.observe(card);
+    });
 
-     // 2. Observer untuk melacak Chapter yang aktif
+    // 2. Observer untuk melacak Chapter yang aktif
     const chapterObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -169,11 +169,12 @@ export default function RightPane({ onChapterChange }: RightPaneProps) {
       {/* ══════════════════════════════════
           CHAPTER 1 — A QUIET START
           ══════════════════════════════════ */}
-      <section
-        id="chapter-1"
-        className="px-8 py-14 border-b-2 border-[#2a2a26]"
-        aria-labelledby="chapter-1-heading"
-      >
+        <section
+          id="chapter-1"
+          className="px-8 py-14 border-b-2 border-[#2a2a26]"
+          aria-labelledby="chapter-1-heading"
+          style={{ backgroundImage: "url('/assets/bgchapter1.jpg')", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}
+        >
         <ChapterHeader chapter={1} />
 
         {/* Chapter 1 description copy */}
@@ -189,10 +190,10 @@ export default function RightPane({ onChapterChange }: RightPaneProps) {
           <HighlightText color="mint">Before the noise, there was this.</HighlightText>
         </p>
 
-{/* Card stack – sequential, one card per viewport, replaces on scroll */}
+        {/* Card stack – sequential, one card per viewport, replaces on scroll */}
         <div className="flex flex-col items-center">
           {chapter1Cards.map((card) => (
-            <div key={card.id} className="h-screen w-full flex items-center justify-center" style={card.id === "card-6" ? {marginLeft: "-10px", marginBottom: "100vh"} : {marginLeft: "-10px"}}>
+            <div key={card.id} className="h-screen w-full flex items-center justify-center" style={card.id === "card-6" ? { marginLeft: "-10px", marginBottom: "20vh" } : { marginLeft: "-10px" }}>
               <div
                 className="scroll-card"
                 style={{
