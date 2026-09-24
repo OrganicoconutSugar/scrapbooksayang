@@ -89,6 +89,7 @@ interface RightPaneProps {
 
 export default function RightPane({ onChapterChange }: RightPaneProps) {
   const containerRef = useRef<HTMLElement>(null);
+  const cardScrollRef = useRef<HTMLElement>(null);
 
   // Efek scroll dengan GSAP
   useEffect(() => {
@@ -121,7 +122,7 @@ export default function RightPane({ onChapterChange }: RightPaneProps) {
         });
       },
       {
-        root: null,
+        root: containerRef.current,
         rootMargin: '0px',
         threshold: 0.5,
       }
@@ -169,12 +170,12 @@ export default function RightPane({ onChapterChange }: RightPaneProps) {
       {/* ══════════════════════════════════
           CHAPTER 1 — A QUIET START
           ══════════════════════════════════ */}
-        <section
-          id="chapter-1"
-          className="px-8 py-14 border-b-2 border-[#2a2a26]"
-          aria-labelledby="chapter-1-heading"
-          style={{ backgroundImage: "url('/assets/bgchapter1.jpeg')", backgroundSize: "contain", backgroundPosition: "center top", backgroundRepeat: "no-repeat" }}
-        >
+      <section
+        id="chapter-1"
+        className="px-8 py-14 border-b-2 border-[#2a2a26]"
+        aria-labelledby="chapter-1-heading"
+        style={{ backgroundImage: "url('/assets/bgchapter1.jpeg')", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}
+      >
         <ChapterHeader chapter={1} />
 
         {/* Chapter 1 description copy */}
@@ -191,32 +192,41 @@ export default function RightPane({ onChapterChange }: RightPaneProps) {
         </p>
 
         {/* Card stack – sequential, one card per viewport, replaces on scroll */}
-        <div className="flex flex-col items-center">
-          {chapter1Cards.map((card) => (
-            <div key={card.id} className="h-screen w-full flex items-center justify-center" style={card.id === "card-6" ? { marginLeft: "-10px", marginBottom: "20vh" } : { marginLeft: "-10px" }}>
-              <div
-                className="scroll-card"
-                style={{
-                  width: "60%",
-                  opacity: 0,
-                  pointerEvents: "none",
-                }}
-              >
-                <PolaroidCard
-                  id={card.id}
-                  title={card.title}
-                  caption={card.caption}
-                  highlightColor={card.highlightColor}
-                  body={card.body}
-                  rotate={card.rotate}
-                  badgeColor={card.badgeColor}
-                  badgeTextColor={card.badgeTextColor}
-                  tapeRotate={card.tapeRotate}
-                  className="w-full"
+        <div className="relative h-screen overflow-hidden">
+          <div
+            ref={containerRef}
+            className="h-full overflow-y-auto"
+            style={{ scrollSnapType: "y mandatory" }}
+          >
+            {chapter1Cards.map((card) => (
+              <div key={card.id} className="h-screen w-full flex items-center justify-center" style={{ marginLeft: "-10px" }}>
+                <div
+                  className="scroll-card"
+                  style={{
+                    width: "60%",
+                    opacity: 0,
+                    pointerEvents: "none",
+                  }}
                 >
-                  <img src={card.imageSrc} alt={card.title} className="w-full h-auto object-cover" />
-                </PolaroidCard>
+                  <PolaroidCard
+                    id={card.id}
+                    title={card.title}
+                    caption={card.caption}
+                    highlightColor={card.highlightColor}
+                    body={card.body}
+                    rotate={card.rotate}
+                    badgeColor={card.badgeColor}
+                    badgeTextColor={card.badgeTextColor}
+                    tapeRotate={card.tapeRotate}
+                    className="w-full"
+                  >
+                    <img src={card.imageSrc} alt={card.title} className="w-full h-auto object-cover" />
+                  </PolaroidCard>
+                </div>
               </div>
+            ))}
+          </div>
+        </div>
             </div>
           ))}
         </div>
