@@ -170,12 +170,12 @@ export default function RightPane({ onChapterChange }: RightPaneProps) {
       {/* ══════════════════════════════════
           CHAPTER 1 — A QUIET START
           ══════════════════════════════════ */}
-      <section
-        id="chapter-1"
-        className="px-8 py-14 border-b-2 border-[#2a2a26]"
-        aria-labelledby="chapter-1-heading"
-        style={{ backgroundImage: "url('/assets/bgchapter1.jpeg')", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}
-      >
+<section
+          id="chapter-1"
+          className="px-8 py-14 border-b-2 border-[#2a2a26]"
+          aria-labelledby="chapter-1-heading"
+          style={{ height: "100vh", backgroundImage: "url('/assets/bgchapter1.jpeg')", backgroundSize: "cover", backgroundPosition: "center top", backgroundRepeat: "no-repeat" }}
+        >
         <ChapterHeader chapter={1} />
 
         {/* Chapter 1 description copy */}
