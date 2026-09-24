@@ -122,7 +122,7 @@ export default function RightPane({ onChapterChange }: RightPaneProps) {
         });
       },
       {
-        root: containerRef.current,
+        root: cardScrollRef.current,
         rootMargin: '0px',
         threshold: 0.5,
       }
@@ -194,7 +194,7 @@ export default function RightPane({ onChapterChange }: RightPaneProps) {
         {/* Card stack – sequential, one card per viewport, replaces on scroll */}
         <div className="relative h-screen overflow-hidden">
           <div
-            ref={containerRef}
+            ref={cardScrollRef}
             className="h-full overflow-y-auto"
             style={{ scrollSnapType: "y mandatory" }}
           >
