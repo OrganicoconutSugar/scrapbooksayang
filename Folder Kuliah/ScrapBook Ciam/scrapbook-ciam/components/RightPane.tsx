@@ -173,7 +173,7 @@ export default function RightPane({ onChapterChange }: RightPaneProps) {
           id="chapter-1"
           className="px-8 py-14 border-b-2 border-[#2a2a26]"
           aria-labelledby="chapter-1-heading"
-          style={{ backgroundImage: "url('/assets/bgchapter1.jpg')", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}
+          style={{ backgroundImage: "url('/assets/bgchapter1.jpeg')", backgroundSize: "contain", backgroundPosition: "center top", backgroundRepeat: "no-repeat" }}
         >
         <ChapterHeader chapter={1} />
 
