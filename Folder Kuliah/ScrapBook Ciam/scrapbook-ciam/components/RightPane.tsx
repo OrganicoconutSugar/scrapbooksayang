@@ -227,9 +227,6 @@ export default function RightPane({ onChapterChange }: RightPaneProps) {
             ))}
           </div>
         </div>
-            </div>
-          ))}
-        </div>
 
         {/* Ink annotation doodle */}
         <div className="mt-8 flex items-center justify-center gap-3 w-full">
